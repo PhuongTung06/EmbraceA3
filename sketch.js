@@ -377,7 +377,7 @@ function drawUI() {
 
   // POPUP SIZE
   let popupW = min(850, width * 0.8);
-  let popupH = min(520, height * 0.75);
+  let popupH = min(900, height * 0.95);
   let popupX = width / 2 - popupW / 2;
   let popupY = height / 2 - popupH / 2;
 
@@ -406,66 +406,248 @@ function drawUI() {
     popupY + 30
   );
 
-  // TITLE
-fill('#BFF4B8');
-textFont('apotek-wide');
-textStyle(NORMAL);
-textAlign(CENTER, CENTER);
+  // =====================================
+  // CONTENT AREA
+  // =====================================
 
-textSize(titleSize);
+  let contentX = popupX + 45;
+  let contentW = popupW - 90;
 
-let titleText = 'The ocean has given you its blessing!';
-let titleBoxW = popupW - 90;
-let titleBoxH = titleSize * 3;
+  // Start position
+  let y = popupY + popupH * 0.13;
 
-// TITLE POSITION
-let titleY = popupY + popupH * 0.22;
+  // =====================================
+  // GAMEPLAY TITLE
+  // =====================================
 
-text(
-  titleText,
-  popupX + 45,
-  titleY - titleBoxH / 2,
-  titleBoxW,
-  titleBoxH
-);
+  fill('#BFF4B8');
+  textFont('apotek-wide');
+  textStyle(NORMAL);
+  textAlign(CENTER, CENTER);
+  textSize(titleSize);
 
+  let titleText =
+    'The ocean has given you its blessing!';
 
-// BODY
-fill('#EBFBE9');
-textFont('Alata');
-textStyle(NORMAL);
+  let titleLines = wrapText(titleText, contentW);
 
-textSize(bodySize);
-textLeading(bodySize * 1.35);
+  for (let line of titleLines) {
+    text(line, width / 2, y);
+    y += titleSize * 1.15;
+  }
 
-let bodyText =
-  'Drag and drop the spark onto the globe to accept its blessing\n' +
-  'and give something back as a gesture of thanks.\n\n' +
-  'Click the spark to take it away.';
+  // Space after title
+  y += titleSize * 0.9;
 
-let bodyBoxW = popupW - 90;
-let bodyBoxH = bodySize * 6;
+  // =====================================
+  // GAMEPLAY INSTRUCTIONS
+  // =====================================
 
-// SPACE BETWEEN TITLE AND BODY
-let bodyY = titleY + titleSize * 2.2;
+  fill('#EBFBE9');
+  textFont('Alata');
+  textStyle(NORMAL);
+  textSize(bodySize);
+  textLeading(bodySize * 1.35);
 
-text(
-  bodyText,
-  popupX + 45,
-  bodyY,
-  bodyBoxW,
-  bodyBoxH
-);
+  let bodyText =
+    'Drag and drop the spark onto the globe to accept its blessing ' +
+    'and give something back as a gesture of thanks.\n\n' +
+    'Click the spark to take it away.';
 
+  let bodyLines = wrapText(bodyText, contentW);
+
+  for (let line of bodyLines) {
+    if (line === '') {
+      y += bodySize * 0.8;
+    } else {
+      text(line, width / 2, y);
+      y += bodySize * 1.35;
+    }
+  }
+
+  // Space before project information
+  y += bodySize * 1.2;
+
+  // =====================================
+  // EMBRACE TITLE
+  // =====================================
+
+  fill('#BFF4B8');
+  textFont('apotek-wide');
+  textStyle(NORMAL);
+  textSize(titleSize);
+  textAlign(CENTER, CENTER);
+
+  // Same title size as gameplay title
+  text(
+    'Embrace',
+    width / 2,
+    y
+  );
+
+  y += titleSize * 1.35;
+
+  // =====================================
+  // MADE BY
+  // =====================================
+
+  fill('#EBFBE9');
+  textFont('Alata');
+  textStyle(NORMAL);
+  textSize(bodySize);
+
+  text(
+    'Made by Trần Tùng Phương',
+    width / 2,
+    y
+  );
+
+  y += bodySize * 2.0;
+
+  // =====================================
+  // ABSTRACT TITLE
+  // =====================================
+
+  fill('#BFF4B8');
+  textFont('Alata');
+  textStyle(BOLD);
+  textSize(bodySize);
+
+  text(
+    'Abstract',
+    width / 2,
+    y
+  );
+
+  y += bodySize * 1.6;
+
+  // =====================================
+  // ABSTRACT TEXT
+  // =====================================
+
+  fill('#EBFBE9');
+  textFont('Alata');
+  textStyle(NORMAL);
+  textSize(bodySize);
+  textLeading(bodySize * 1.35);
+
+  let abstractText =
+    'Embrace is an interactive generative artwork inspired by UN SDG 14.2, ' +
+    'exploring how our actions can either support or harm marine ecosystems. ' +
+    'Dragging the spark back to the globe represents giving something back to nature, ' +
+    'while clicking it away represents taking without giving back.';
+
+  let abstractLines = wrapText(
+    abstractText,
+    contentW
+  );
+
+  for (let line of abstractLines) {
+    text(
+      line,
+      width / 2,
+      y
+    );
+
+    y += bodySize * 1.35;
+  }
+
+  // Space before SDG section
+  y += bodySize * 1.3;
+
+  // =====================================
+  // SDG 14.2 TITLE
+  // =====================================
+
+  fill('#BFF4B8');
+  textFont('Alata');
+  textStyle(BOLD);
+  textSize(bodySize);
+
+  text(
+    'SDG 14.2: Protect and Restore Ecosystems',
+    width / 2,
+    y
+  );
+
+  y += bodySize * 1.6;
+
+  // =====================================
+  // SDG 14.2 TEXT
+  // =====================================
+
+  fill('#EBFBE9');
+  textFont('Alata');
+  textStyle(NORMAL);
+  textSize(bodySize);
+  textLeading(bodySize * 1.35);
+
+  let sdgText =
+    '“By 2020, sustainably manage and protect marine and coastal ecosystems ' +
+    'to avoid significant adverse impacts, including by strengthening their ' +
+    'resilience, and take action for their restoration in order to achieve ' +
+    'healthy and productive oceans.”';
+
+  let sdgLines = wrapText(
+    sdgText,
+    contentW
+  );
+
+  for (let line of sdgLines) {
+    text(
+      line,
+      width / 2,
+      y
+    );
+
+    y += bodySize * 1.35;
+  }
+
+  // Space before CTA
+  y += bodySize * 1.3;
+
+  // =====================================
+  // CTA
+  // =====================================
+
+  fill('#BFF4B8');
+  textFont('Alata');
+  textStyle(BOLD);
+  textSize(bodySize);
+
+  text(
+    'CTA: Change everyday habits to protect ocean health.',
+    width / 2,
+    y
+  );
+
+  // =====================================
   // SOUND BUTTON
-  let buttonW = constrain(popupW * 0.22, 120, 190);
-  let buttonH = constrain(popupH * 0.10, 42, 50);
+  // =====================================
+
+  let buttonW = constrain(
+    popupW * 0.22,
+    120,
+    190
+  );
+
+  let buttonH = constrain(
+    popupH * 0.07,
+    42,
+    50
+  );
 
   let buttonX = popupX + 20;
-  let buttonY = popupY + popupH - buttonH - 20;
+
+  let buttonY =
+    popupY +
+    popupH -
+    buttonH -
+    20;
 
   let soundButtonColor = color('#021427');
   soundButtonColor.setAlpha(80);
+
   fill(soundButtonColor);
 
   rect(
@@ -479,6 +661,7 @@ text(
   // SOUND BUTTON TEXT
   fill('#EBFBE9');
   textFont('Alata');
+  textStyle(NORMAL);
   textSize(buttonSize);
   textAlign(CENTER, CENTER);
 
@@ -490,6 +673,95 @@ text(
 }
 
 
+// =====================================
+// TEXT WRAPPING FUNCTION
+// =====================================
+
+function wrapText(txt, maxWidth) {
+  let paragraphs = txt.split('\n');
+  let lines = [];
+
+  for (let paragraph of paragraphs) {
+
+    // Empty line = spacing between paragraphs
+    if (paragraph === '') {
+      lines.push('');
+      continue;
+    }
+
+    let words = paragraph.split(' ');
+    let currentLine = '';
+
+    for (let word of words) {
+
+      let testLine =
+        currentLine === ''
+          ? word
+          : currentLine + ' ' + word;
+
+      if (textWidth(testLine) <= maxWidth) {
+        currentLine = testLine;
+      } else {
+
+        if (currentLine !== '') {
+          lines.push(currentLine);
+        }
+
+        currentLine = word;
+      }
+    }
+
+    if (currentLine !== '') {
+      lines.push(currentLine);
+    }
+  }
+
+  return lines;
+}
+
+
+// =====================================
+// TEXT WRAPPING FUNCTION
+// =====================================
+
+function wrapText(txt, maxWidth) {
+  let paragraphs = txt.split('\n');
+  let lines = [];
+
+  for (let paragraph of paragraphs) {
+    if (paragraph === '') {
+      lines.push('');
+      continue;
+    }
+
+    let words = paragraph.split(' ');
+    let currentLine = '';
+
+    for (let word of words) {
+      let testLine = currentLine === ''
+        ? word
+        : currentLine + ' ' + word;
+
+      if (textWidth(testLine) <= maxWidth) {
+        currentLine = testLine;
+      } else {
+        if (currentLine !== '') {
+          lines.push(currentLine);
+        }
+
+        currentLine = word;
+      }
+    }
+
+    if (currentLine !== '') {
+      lines.push(currentLine);
+    }
+  }
+
+  return lines;
+}
+
+
 // =====================================================
 // MOUSE
 // =====================================================
@@ -498,16 +770,16 @@ function mousePressed() {
   // POPUP BUTTONS
   if (showInfo) {
     let popupW = min(850, width * 0.8);
-    let popupH = min(520, height * 0.75);
+    let popupH = min(900, height * 0.95);
     let popupX = width / 2 - popupW / 2;
     let popupY = height / 2 - popupH / 2;
 
     // CLOSE X
+    let closeX = popupX + popupW - 30;
+    let closeY = popupY + 30;
+
     if (
-      mouseX > popupX + popupW - 75 &&
-      mouseX < popupX + popupW &&
-      mouseY > popupY &&
-      mouseY < popupY + 75
+      dist(mouseX, mouseY, closeX, closeY) < 35
     ) {
       showInfo = false;
 
@@ -518,11 +790,17 @@ function mousePressed() {
     }
 
     // SOUND BUTTON
+    let buttonW = constrain(popupW * 0.22, 120, 190);
+    let buttonH = constrain(popupH * 0.07, 42, 50);
+
+    let buttonX = popupX + 20;
+    let buttonY = popupY + popupH - buttonH - 20;
+
     if (
-      mouseX > popupX + 30 &&
-      mouseX < popupX + 220 &&
-      mouseY > popupY + popupH - 95 &&
-      mouseY < popupY + popupH - 25
+      mouseX >= buttonX &&
+      mouseX <= buttonX + buttonW &&
+      mouseY >= buttonY &&
+      mouseY <= buttonY + buttonH
     ) {
       toggleSound();
       return;
@@ -533,7 +811,12 @@ function mousePressed() {
   }
 
   // LOGO BUTTON
-  if (mouseX > width - 110 && mouseX < width && mouseY > 0 && mouseY < 120) {
+  if (
+    mouseX > width - 110 &&
+    mouseX < width &&
+    mouseY > 0 &&
+    mouseY < 120
+  ) {
     showInfo = true;
     return;
   }
